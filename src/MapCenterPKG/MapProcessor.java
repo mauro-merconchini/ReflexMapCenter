@@ -13,6 +13,9 @@ public class MapProcessor
     //These integers will hold the shift values on the respective axis
     private int xShift, yShift, zShift;
 
+    //These doubles will hold the coordinates of the map's geometric midpoint
+    private double midX, midY, midZ;
+
     //These will hold the record values for the largest and smallest values for a vertex
     private double xMax, xMin, yMax, yMin, zMax, zMin;
 
@@ -52,7 +55,6 @@ public class MapProcessor
 
         if (reflexValidated)
         {
-
             //Set the map file parameter
             this.mapFile = mapFile;
 
@@ -102,6 +104,13 @@ public class MapProcessor
                 }
             }
         }
+
+        //Calculate the three coordinates of the geometric midpoint
+        midX = (xMin + xMax) / 2;
+        midY = (yMin + yMax) / 2;
+        midZ = (zMin + zMax) / 2;
+
+        System.out.printf("Map's midpoint: %.6f %.6f %.6f\n\n", midX, midY, midZ);
     }
 
     private void compareVertices(int start, int end)
