@@ -3,6 +3,10 @@ package MapCenterPKG;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 
 public class MapProcessor
@@ -72,17 +76,29 @@ public class MapProcessor
     /**
      * This method will take care of calling helpers to center the map
      */
-    public void centerMap()
+    public void centerMap() throws IOException
     {
         createLinesArray();
 
-        calculateCenter();
+        calculateMidpoint();
+
+        //Calculate the values that everything needs to be shifted by, it will be the negative of the geometric midpoint
+        xShift = (int)(midX * -1);
+        yShift = (int)(midY * -1);
+        zShift = (int)(midZ * -1);
+
+        //Move the map file to the working folder before executing shifts
+        Files.move
+        (Paths.get(exeDirectory + "\\" + mapFile), Paths.get(workingDirectory + "\\" + mapFile),
+        StandardCopyOption.REPLACE_EXISTING);
+
+        shiftBrushes();
     }
 
     /**
      * This method will find the geometric center of the inputted map
      */
-    private void calculateCenter()
+    private void calculateMidpoint()
     {
         //Iterate through all the lines
         for (int i = 0; i < lines.length; i++)
@@ -111,6 +127,17 @@ public class MapProcessor
         midZ = (zMin + zMax) / 2;
 
         System.out.printf("Map's midpoint: %.6f %.6f %.6f\n\n", midX, midY, midZ);
+    }
+
+    private void shiftBrushes() throws IOException
+    {
+        System.out.println("Shifting Entities...");
+
+        Process myProcess = Runtime.getRuntime().exec(new String[]
+                {
+                    entityShifterLocation, workingDirectory +
+                    "\\" + mapFile, Integer.toString(xShift), Integer.toString(yShift), Integer.toString(zShift)
+                });
     }
 
     private void compareVertices(int start, int end)

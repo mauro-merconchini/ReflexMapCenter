@@ -7,17 +7,6 @@ public class Main
 {
     public static void main(String[] args) throws IOException
     {
-//        System.out.println("\nShifting Entities...");
-//
-//        Process myProcess = Runtime.getRuntime().exec(new String[]
-//                {
-//                    exeDirectory + "\\tools\\ReflexEntityShifter", exeDirectory + "\\cpm5.map", "10", "10", "10"
-//                });
-//
-//        System.out.println("Success\n");
-
-        //************DELETE THIS ABOVE ^^^*******************
-
         //argument 0: Map file name
 
         //********CODE BELOW CHECKS FOR INPUT VALIDITY********
