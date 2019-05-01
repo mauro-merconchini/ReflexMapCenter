@@ -82,6 +82,7 @@ public class Main
             //Execute further instructions only if the file was validated
             if (cpm5Processor.reflexValidated)
             {
+                System.out.println("I made it here");
                 cpm5Processor.centerMap();
             }
         }
