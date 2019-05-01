@@ -88,7 +88,7 @@ public class MapProcessor
         zShift = (int)(midZ * -1);
 
         //Move the map file to the working folder before executing shifts
-        Files.move
+        Files.copy
         (Paths.get(exeDirectory + "\\" + mapFile), Paths.get(workingDirectory + "\\" + mapFile),
         StandardCopyOption.REPLACE_EXISTING);
 
