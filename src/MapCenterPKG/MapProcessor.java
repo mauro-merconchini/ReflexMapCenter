@@ -106,7 +106,73 @@ public class MapProcessor
 
     private void compareVertices(int start, int end)
     {
-        
+        //This scanner will hold a current line and pass vertex coordinates
+        Scanner vertScanner;
+
+        //These doubles will hold the coordinates of a vertex
+        double vertX, vertY, vertZ;
+
+        for (int i = start; i < end; i++)
+        {
+            //Feed the line into the scanner
+            vertScanner = new Scanner(lines[i]);
+
+            //Extract 3 doubles and throw them into the container doubles
+            vertX = Double.parseDouble(String.valueOf(vertScanner.nextDouble()));
+            vertY = Double.parseDouble(String.valueOf(vertScanner.nextDouble()));
+            vertZ = Double.parseDouble(String.valueOf(vertScanner.nextDouble()));
+
+            //If this is the first set of coordinates pulled, set them as the records to establish a comparison point
+            if (neverComparedBefore)
+            {
+                xMax = vertX;
+                xMin = vertX;
+
+                yMax = vertY;
+                yMin = vertY;
+
+                zMax = vertZ;
+                zMin = vertZ;
+
+                neverComparedBefore = false;
+            }
+
+            else
+            {
+                //Compare the X coordinate and see if it beats either record
+                if (vertX > xMax)
+                {
+                    xMax = vertX;
+                }
+
+                if (vertX < xMin)
+                {
+                    xMin = vertX;
+                }
+
+                //Compare the Y coordinate and see if it beats either record
+                if (vertY > yMax)
+                {
+                    yMax = vertY;
+                }
+
+                if (vertY < yMin)
+                {
+                    yMin = vertY;
+                }
+
+                //Compare the Z coordinate and see if it beats either record
+                if (vertZ > zMax)
+                {
+                    zMax = vertZ;
+                }
+
+                if (vertZ < zMin)
+                {
+                    zMin = vertZ;
+                }
+            }
+        }
     }
 
     private int lineCount() throws FileNotFoundException
