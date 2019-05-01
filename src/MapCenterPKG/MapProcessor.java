@@ -87,7 +87,7 @@ public class MapProcessor
         yShift = (int)(midY * -1);
         zShift = (int)(midZ * -1);
 
-        //Move the map file to the working folder before executing shifts
+        //Copy the map file to the working folder before executing shifts
         Files.copy
         (Paths.get(exeDirectory + "\\" + mapFile), Paths.get(workingDirectory + "\\" + mapFile),
         StandardCopyOption.REPLACE_EXISTING);
@@ -129,17 +129,26 @@ public class MapProcessor
         System.out.printf("Map's midpoint: %.6f %.6f %.6f\n\n", midX, midY, midZ);
     }
 
+    /**
+     * This method takes care of calling the Brush Shifter utility
+     * @throws IOException
+     */
     private void shiftBrushes() throws IOException
     {
         System.out.println("Shifting Entities...");
 
         Process myProcess = Runtime.getRuntime().exec(new String[]
                 {
-                    entityShifterLocation, workingDirectory +
+                    brushShifterLocation, workingDirectory +
                     "\\" + mapFile, Integer.toString(xShift), Integer.toString(yShift), Integer.toString(zShift)
                 });
     }
 
+    /**
+     * This method will take care of comparing all vertices of a vertex group against the record MAX and MIN
+     * @param start The start line of the vertex group
+     * @param end The end line of the vertex group
+     */
     private void compareVertices(int start, int end)
     {
         //This scanner will hold a current line and pass vertex coordinates
