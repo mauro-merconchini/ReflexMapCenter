@@ -9,7 +9,7 @@ Everything you will need to get the application up and running.
 **Java 1.6.0 or above.** If you don't have it already, you can [download it here](https://www.java.com/en/download/)
 
 ### Installation
-Download the [latest release](https://github.com/mauro-merconchini/ReflexEntityShifter/releases) and unzip the contents into a directory of your choosing.
+Download the [latest release](https://github.com/mauro-merconchini/ReflexMapCenter/releases) and unzip the contents into a directory of your choosing.
 
 **Note:** Please **don't** rename any of the directories, executables, or mess with the file structure in any way. Doing so will very likely cause the program to not function, as it will not be able to locate files during execution.
 
