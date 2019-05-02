@@ -1,9 +1,6 @@
 package MapCenterPKG;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -46,6 +43,9 @@ public class MapProcessor
     private String brushShifterLocation = exeDirectory + "\\tools\\ReflexBrushShifter";
     private String entityShifterLocation = exeDirectory + "\\tools\\ReflexEntityShifter";
 
+    //The name of the file with the modification in the name
+    private String partialFileName;
+
     //This will make sure that the first time vertices are pulled, they will be the new records in min and max to compare to
     private boolean neverComparedBefore = true;
 
@@ -64,6 +64,9 @@ public class MapProcessor
 
             //Initialize the map scanner
             mapScanner = new Scanner(new File(mapFile));
+
+            //Calculate the partial file name
+            partialFileName = mapFile.substring(0, mapFile.length() - 4);
 
             //Tell the user everything is honky dory for the scanner
             System.out.println("\nLoaded your file: " + mapFile);
@@ -92,7 +95,9 @@ public class MapProcessor
         (Paths.get(exeDirectory + "\\" + mapFile), Paths.get(workingDirectory + "\\" + mapFile),
         StandardCopyOption.REPLACE_EXISTING);
 
+        //Shift everything
         shiftBrushes();
+        shiftEntities();
     }
 
     /**
@@ -135,13 +140,46 @@ public class MapProcessor
      */
     private void shiftBrushes() throws IOException
     {
-        System.out.println("Shifting Entities...");
+        System.out.println("Shifting Brushes...");
 
         Process myProcess = Runtime.getRuntime().exec(new String[]
                 {
                     brushShifterLocation, workingDirectory +
                     "\\" + mapFile, Integer.toString(xShift), Integer.toString(yShift), Integer.toString(zShift)
                 });
+
+        String s;
+        System.out.println(myProcess.getOutputStream());
+        BufferedReader stdInput = new BufferedReader(new
+                InputStreamReader(myProcess.getInputStream()));
+        while((s=stdInput.readLine())!=null) {
+            System.out.println(s);
+        }
+    }
+
+    /**
+     * This method takes care of calling the Entity Shifter utility
+     * @throws IOException
+     */
+    private void shiftEntities() throws IOException
+    {
+        System.out.println("Shifting Entities...");
+
+        Process myProcess = Runtime.getRuntime().exec(new String[]
+                {
+                        entityShifterLocation, workingDirectory +
+                        "\\" + partialFileName + "_BrushShifted.map",
+                        //"\\" + mapFile,
+                        Integer.toString(xShift), Integer.toString(yShift), Integer.toString(zShift)
+                });
+
+        String s;
+        System.out.println(myProcess.getOutputStream());
+        BufferedReader stdInput = new BufferedReader(new
+                InputStreamReader(myProcess.getInputStream()));
+        while((s=stdInput.readLine())!=null) {
+            System.out.println(s);
+        }
     }
 
     /**
