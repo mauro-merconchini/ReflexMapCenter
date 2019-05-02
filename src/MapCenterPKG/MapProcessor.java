@@ -98,6 +98,21 @@ public class MapProcessor
         //Shift everything
         shiftBrushes();
         shiftEntities();
+
+        //Copy the resultant map file that has had everything shifted
+        Files.copy
+        (Paths.get(workingDirectory + "\\" + partialFileName + "_BrushShifted_EntityShifted.map"),
+         Paths.get(exeDirectory + "\\" + partialFileName + "_Centered.map"),
+        StandardCopyOption.REPLACE_EXISTING);
+
+        System.out.println("\nCleaning up...");
+        //Clean up the working directory
+        Files.deleteIfExists(Paths.get(workingDirectory + "\\" + mapFile));
+        Files.deleteIfExists(Paths.get(workingDirectory + "\\" + partialFileName + "_BrushShifted.map"));
+        Files.deleteIfExists(Paths.get(workingDirectory + "\\" + partialFileName + "_BrushShifted_EntityShifted.map"));
+
+        //Tell the user that the process is complete
+        System.out.println("\nYour map has been successfully centered!\n");
     }
 
     /**
@@ -148,12 +163,15 @@ public class MapProcessor
                     "\\" + mapFile, Integer.toString(xShift), Integer.toString(yShift), Integer.toString(zShift)
                 });
 
-        String s;
+        //This string will store the output from calling the tool
+        String processOutput;
+
+        //The commands below will feed the output from the tool into the string and print it
         System.out.println(myProcess.getOutputStream());
-        BufferedReader stdInput = new BufferedReader(new
-                InputStreamReader(myProcess.getInputStream()));
-        while((s=stdInput.readLine())!=null) {
-            System.out.println(s);
+        BufferedReader stdInput = new BufferedReader(new InputStreamReader(myProcess.getInputStream()));
+        while((processOutput = stdInput.readLine())!=null)
+        {
+            System.out.println(processOutput);
         }
     }
 
@@ -173,12 +191,15 @@ public class MapProcessor
                         Integer.toString(xShift), Integer.toString(yShift), Integer.toString(zShift)
                 });
 
-        String s;
+        //This string will store the output from calling the tool
+        String processOutput;
+
+        //The commands below will feed the output from the tool into the string and print it
         System.out.println(myProcess.getOutputStream());
-        BufferedReader stdInput = new BufferedReader(new
-                InputStreamReader(myProcess.getInputStream()));
-        while((s=stdInput.readLine())!=null) {
-            System.out.println(s);
+        BufferedReader stdInput = new BufferedReader(new InputStreamReader(myProcess.getInputStream()));
+        while((processOutput = stdInput.readLine())!=null)
+        {
+            System.out.println(processOutput);
         }
     }
 
