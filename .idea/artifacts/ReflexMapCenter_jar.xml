@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ReflexMapCenter:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ReflexMapCenter_jar</output-path>
+    <root id="archive" name="ReflexMapCenter.jar">
+      <element id="module-output" name="ReflexMapCenter" />
+    </root>
+  </artifact>
+</component>
