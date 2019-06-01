@@ -48,6 +48,7 @@ I developed my own set of tools for shifting the brushes and entities of *Reflex
 ## Acknowledgements
 * *lolograde* from the [Reflex Arena discord](https://discordapp.com/invite/reflex) for inpiring me to make this tool
 * Mikhail for suggesting the easiest way to find the geometric center of the map
+* Donaldduck8 for some compatibility fixes
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details

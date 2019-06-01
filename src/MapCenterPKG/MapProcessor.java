@@ -100,7 +100,7 @@ public class MapProcessor
         //Copy the map file to the working folder before executing shifts
         Files.copy
         (Paths.get(exeDirectory + "\\" + mapFile), 
-		 Paths.get(workingDirectory + "\\" + mapFile),
+         Paths.get(workingDirectory + "\\" + mapFile),
         StandardCopyOption.REPLACE_EXISTING);
 
         //Shift everything
