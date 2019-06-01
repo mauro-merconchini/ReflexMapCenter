@@ -62,7 +62,7 @@ public class Main
 
         if (argumentsValid)
         {
-        	Locale.setDefault(Locale.ENGLISH);
+            Locale.setDefault(Locale.ENGLISH);
         	
             //The following declaration will hold the argument
             String mapFile = args[0];
