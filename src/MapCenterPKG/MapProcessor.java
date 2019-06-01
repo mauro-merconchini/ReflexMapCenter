@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class MapProcessor
@@ -89,16 +90,23 @@ public class MapProcessor
         xShift = (int)(midX * -1);
         yShift = (int)(midY * -1);
         zShift = (int)(midZ * -1);
-
+        
+        //mapFile and partialFileName contain the *full* paths, so they need to be cut down
+        File filetemp = new File(mapFile);
+        mapFile = filetemp.getName();
+        File filetemp2 = new File(partialFileName);
+        partialFileName = filetemp2.getName();
+        
         //Copy the map file to the working folder before executing shifts
         Files.copy
-        (Paths.get(exeDirectory + "\\" + mapFile), Paths.get(workingDirectory + "\\" + mapFile),
+        (Paths.get(exeDirectory + "\\" + mapFile), 
+         Paths.get(workingDirectory + "\\" + mapFile),
         StandardCopyOption.REPLACE_EXISTING);
 
         //Shift everything
         shiftBrushes();
         shiftEntities();
-
+        
         //Copy the resultant map file that has had everything shifted
         Files.copy
         (Paths.get(workingDirectory + "\\" + partialFileName + "_BrushShifted_EntityShifted.map"),
@@ -202,7 +210,7 @@ public class MapProcessor
             System.out.println(processOutput);
         }
     }
-
+    
     /**
      * This method will take care of comparing all vertices of a vertex group against the record MAX and MIN
      * @param start The start line of the vertex group
@@ -210,16 +218,15 @@ public class MapProcessor
      */
     private void compareVertices(int start, int end)
     {
-        //This scanner will hold a current line and pass vertex coordinates
-        Scanner vertScanner;
 
         //These doubles will hold the coordinates of a vertex
         double vertX, vertY, vertZ;
 
         for (int i = start; i < end; i++)
         {
+            //This scanner will hold the current line and pass vertex coordinates
             //Feed the line into the scanner
-            vertScanner = new Scanner(lines[i]);
+            Scanner vertScanner = new Scanner(lines[i]);
 
             //Extract 3 doubles and throw them into the container doubles
             vertX = Double.parseDouble(String.valueOf(vertScanner.nextDouble()));
@@ -276,6 +283,9 @@ public class MapProcessor
                     zMin = vertZ;
                 }
             }
+            
+            //Close vertScanner
+            vertScanner.close();
         }
     }
 
@@ -295,6 +305,9 @@ public class MapProcessor
             //System.out.println("I am at line" + lines);
         }
 
+        //Close lineCounter
+        lineCounter.close();
+        
         //Spit out the amount of lines
         return lines;
     }
