@@ -1,6 +1,7 @@
 package MapCenterPKG;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main
@@ -57,12 +58,13 @@ public class Main
                 }
             }
         }
-
         //**********CODE BELOW WILL PROCESS MAP FILE**********
 
         if (argumentsValid)
         {
-            //The following 4 declarations will hold the arguments
+        	Locale.setDefault(Locale.ENGLISH);
+        	
+            //The following declaration will hold the argument
             String mapFile = args[0];
 
             //Create the map processor object and pass it the file
